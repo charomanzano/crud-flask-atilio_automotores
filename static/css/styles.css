@@ -1,0 +1,13 @@
+/* .fondo {
+  background-image: href=
+    "/Users/micaelamanzano/Documents/atilio/project_flask/static/img/SL_092920_35860_14.jpg" !important;
+  background-size: cover;
+} */
+h1 {
+  font-family: Haettenschweiler;
+  font-size: xx-large !important;
+  font-weight: bold;
+}
+.container {
+  display: none;
+}

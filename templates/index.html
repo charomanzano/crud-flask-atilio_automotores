@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Atilio Automotores</title>
+    <!-- Agrega los enlaces a los estilos de Bootstrap -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+    />
+    <!-- Agrega el enlace al archivo CSS personalizado -->
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Agrega el enlace a Google Fonts -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@1,700&family=Racing+Sans+One&family=Saira:ital,wght@0,500;1,900&display=swap"
+    />
+    <style>
+      body {
+        background-image: url("/static/img/23624.jpg");
+        background-size: cover;
+        background-attachment: fixed;
+        background-repeat: no-repeat;
+        opacity: 0.95;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="container-fluid"
+      style="background-color: rgba(228, 26, 26, 0.1); min-height: 100vh"
+    >
+      <div class="row">
+        <div class="col-12">
+          <img
+            src="/static/img/kisspng-car-dealership-auto-detailing-sales-van-auto-5ad094e87da752.3509160115236190485147.png"
+            class="img-fluid text-white text-center"
+            alt=""
+          />
+          <h1
+            style="
+              position: absolute;
+              top: 15%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              font-family: 'Racing Sans One';
+              font-size: 55px;
+              color: rgba(228, 26, 26, 0.8);
+              -webkit-text-stroke: 1.5px black;
+              text-stroke: 2.5px black;
+              text-shadow: 0 30px 20px black;
+              z-index: 1;
+            "
+            class="text-center"
+          >
+            Atilio Automotores
+          </h1>
+          <br /><br /><br /><br />
+          <p
+            style="
+              position: absolute;
+              top: 20%;
+              left: 50%;
+              transform: translate(-50%, -50%);
+              font-family: 'Racing Sans One';
+              color: white;
+              font-size: 30px;
+              -webkit-text-stroke: 1.5px black;
+              text-stroke: 1.5px black;
+              text-shadow: 0 5px 5px rgba(204, 0, 0, 0.75);
+              z-index: 1;
+            "
+            class="text-center"
+          >
+            Gestion administrativa
+          </p>
+        </div>
+      </div>
+    </div>
+    <nav
+      class="navbar navbar-expand-sm navbar-dark bg-dark fixed-top"
+      style="border: 0.5px solid red"
+    >
+      <div class="container-fluid">
+        <a class="navbar-brand" href="javascript:void(0)"></a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#mynavbar"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+              <a href="#ingresos-container" class="nav-link" id="ingresos-link"
+                >Ingresos</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link btn-outline-primary" href="javascript:void(0)"
+                >Egresos</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="javascript:void(0)">Stock</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/reportes">Reportes</a>
+            </li>
+          </ul>
+
+          <form class="d-flex">
+            <input class="form-control me-2" type="text" placeholder="Search" />
+            <button class="btn btn-dark" type="button">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Inicio Formulario de Ingreso de vehiculos -->
+    <div
+      class="container-fluid h-100"
+      id="ingresos-container"
+      style="
+        display: none; /* Ocultar por defecto */
+        height: 100vh;
+        border-top: 0.5px solid red;
+        position: absolute;
+        top: 70%;
+        background-color: black;
+        opacity: 0.7;
+      "
+    >
+      <div
+        class="p-3 text-left"
+        style="font-family: 'tahoma'; color: white; font-size: 15px"
+      >
+        <h5>Formulario Ingreso de vehiculos</h5>
+        <br />
+        <div class="row align-items-stretch">
+          <div class="col-md-4 h-100">
+            <!-- Formularios -->
+            <form
+              action="/upload"
+              method="POST"
+              enctype="multipart/form-data"
+              onsubmit="return validarResultado()"
+            >
+              <div class="mb-3">
+                <label for="file" class="form-label">Cargar Cédula:</label>
+                <input class="form-control" type="file" name="file" />
+              </div>
+              <div class="mb-3">
+                <label for="precio_toma" class="form-label"
+                  >Precio de toma:</label
+                >
+                <input
+                  class="form-control"
+                  type="number"
+                  name="precio_toma"
+                  placeholder="Precio de toma"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="observaciones" class="form-label"
+                  >Observaciones:</label
+                >
+                <textarea
+                  class="form-control"
+                  name="observaciones"
+                  placeholder="Observaciones"
+                  rows="1"
+                ></textarea>
+              </div>
+              <button class="btn btn-danger" type="submit">Enviar</button>
+            </form>
+          </div>
+          <div class="col-md-8 h-100">
+            <!-- Sección de resultados -->
+            <div id="resultados-table">
+              {% if resultados_html %} {{ resultados_html|safe }} {% else %}
+              <p id="no-results">No hay resultados disponibles.</p>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Agrega el enlace al archivo JavaScript de Bootstrap (opcional) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Agrega el enlace al archivo JavaScript personalizado -->
+    <script src="/static/js/main.js"></script>
+  </body>
+</html>
